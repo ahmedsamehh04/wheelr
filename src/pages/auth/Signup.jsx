@@ -38,10 +38,10 @@ const Signup = () => {
 
   const onSubmit = async (data) => {
     try {
-      // TODO: Implement actual signup API call here
+      
       console.log('Signup attempt with:', data);
       
-      // On successful signup, redirect to login
+      
       navigate('/login');
     } catch (error) {
       console.error('Signup failed:', error);
@@ -124,7 +124,7 @@ const Signup = () => {
           </button>
 
           <p className="login-prompt">
-            Already have an account? <Link to="/login">Login</Link>
+            Already have an account? <Link to="/">Login</Link>
           </p>
         </form>
       </div>

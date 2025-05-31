@@ -34,7 +34,7 @@ const Home = () => {
   };
 
   const handleLogout = () => {
-    navigate('/login');
+    navigate('/');
   };
 
   return (
