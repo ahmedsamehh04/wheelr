@@ -1,6 +1,8 @@
 .finance-container {
   min-height: 100vh;
   background: white;
+    font-family: Arial, sans-serif;
+
 }
 
 .main-nav {

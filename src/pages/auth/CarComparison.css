@@ -1,0 +1,164 @@
+.car-comparison-container {
+  width: 550px;
+  height: 300px;
+  margin: 20px auto;
+  padding: 30px;
+  font-family: Arial, sans-serif;
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.85);
+  border-radius: 50px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  background: white;
+  
+}
+
+.car-comparison-container::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('/src/assets/car-comparison-bg.jpg');
+  background-size: cover;
+  background-position: center ;
+  background-repeat: no-repeat;
+  opacity: 0.4;
+  z-index: -1;
+}
+
+.navigation {
+  background-color: white;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #eee;
+}
+
+.navigation ul {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.navigation li {
+  color: #333;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  position: relative;
+}
+
+.navigation li a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.navigation li.active {
+  color: #B22222;
+}
+
+.navigation li.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #B22222;
+}
+
+.navigation li:hover {
+  color: #B22222;
+}
+
+.comparison-section {
+  text-align: center;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+h1 {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.comparison-form {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.cars-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 25px;
+  position: relative;
+  gap: 20px;
+}
+
+.car-input-wrapper {
+  width: 100%;
+  max-width: 300px;
+}
+
+.car-input {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 30px;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.car-input:focus {
+  outline: none;
+  border-color: #c41e3a;
+  box-shadow: 0 0 5px rgba(196, 30, 58, 0.3);
+}
+
+.vs-circle {
+  width: 40px;
+  height: 40px;
+  background-color: #c41e3a;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.vs-circle span {
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.confirm-button {
+  background-color: #c41e3a;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  font-size: 16px;
+  border-radius: 30px;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(196, 30, 58, 0.3);
+}
+
+.confirm-button:hover {
+  background-color: #a01830;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(196, 30, 58, 0.4);
+}

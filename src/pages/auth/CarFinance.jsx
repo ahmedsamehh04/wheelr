@@ -13,8 +13,8 @@ const CarFinance = () => {
       <nav className="main-nav">
         <ul className="nav-tabs">
           <li onClick={() => navigate('/Home')}>New cars</li>
-          <li>Used cars</li>
-          <li>Car comparison</li>
+           <li onClick={() => navigate('/UsedCars')}>Used cars</li>
+          <li onClick={() => navigate('/CarComparison')}>Car comparison</li> 
           <li className="active">Car finance</li>
         </ul>
       </nav>

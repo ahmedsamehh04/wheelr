@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Home.css';
 
-const Home = () => {
+const UsedCars = () => {
   const navigate = useNavigate();
   const [selectedBodyType, setSelectedBodyType] = useState('');
   const [selectedTransmission, setSelectedTransmission] = useState('');
+  const [selectedYear, setSelectedYear] = useState('');
+  const [selectedMileage, setSelectedMileage] = useState('');
 
   const bodyTypes = [
     'Sedan',
@@ -25,12 +27,30 @@ const Home = () => {
     'Manual'
   ];
 
+  const yearOptions = Array.from({ length: 30 }, (_, i) => new Date().getFullYear() - i);
+
+  const mileageRanges = [
+    'Under 10,000 km',
+    '10,000 - 30,000 km',
+    '30,000 - 60,000 km',
+    '60,000 - 100,000 km',
+    'Over 100,000 km'
+  ];
+
   const handleBodyTypeChange = (e) => {
     setSelectedBodyType(e.target.value);
   };
 
   const handleTransmissionChange = (e) => {
     setSelectedTransmission(e.target.value);
+  };
+
+  const handleYearChange = (e) => {
+    setSelectedYear(e.target.value);
+  };
+
+  const handleMileageChange = (e) => {
+    setSelectedMileage(e.target.value);
   };
 
   const handleLogout = () => {
@@ -42,22 +62,58 @@ const Home = () => {
       <nav className="main-nav">
         <div className="nav-content">
           <ul className="nav-tabs">
-            <li className="active">New cars</li>
-            <li onClick={() => navigate('/UsedCars')}>Used cars</li>
-           <li onClick={() => navigate('/CarComparison')}>Car comparison</li>         
-              <li onClick={() => navigate('/Car-finance')}>Car finance</li>
+            <li onClick={() => navigate('/Home')}>New cars</li>
+            <li className="active">Used cars</li>
+            <li onClick={() => navigate('/CarComparison')}>Car comparison</li>         
+             <li onClick={() => navigate('/Car-finance')}>Car finance</li>
           </ul>
           <button className="logout-button" onClick={handleLogout}>Logout</button>
         </div>
       </nav>
 
       <div className="hero-section">
-        <h1>Pick your next car now</h1>
+        <h1>Find your perfect used car</h1>
         
         <div className="search-filters">
           <div className="filter-group">
             <label>Price range:</label>
             <input type="text" placeholder="Enter price range" />
+          </div>
+
+          <div className="filter-group">
+            <label>Year:</label>
+            <div className="select-wrapper">
+              <select 
+                value={selectedYear}
+                onChange={handleYearChange}
+                className="body-type-select"
+              >
+                <option value="">Select year</option>
+                {yearOptions.map((year) => (
+                  <option key={year} value={year}>
+                    {year}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div className="filter-group">
+            <label>Mileage:</label>
+            <div className="select-wrapper">
+              <select 
+                value={selectedMileage}
+                onChange={handleMileageChange}
+                className="body-type-select"
+              >
+                <option value="">Select mileage range</option>
+                {mileageRanges.map((range) => (
+                  <option key={range} value={range}>
+                    {range}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
 
           <div className="filter-group">
@@ -102,7 +158,7 @@ const Home = () => {
           </div>
 
           <button className="search-button">
-            Search Cars
+            Search Used Cars
           </button>
         </div>
       </div>
@@ -132,4 +188,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default UsedCars;
