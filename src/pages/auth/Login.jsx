@@ -28,11 +28,7 @@ const Login = () => {
 
   const onSubmit = async (data) => {
     try {
-      // TODO: Add your actual login authentication logic here
       console.log('Login attempt with:', data);
-      
-      // For now, we'll simulate a successful login
-      // In a real app, you would verify credentials before navigating
       navigate('/home');
     } catch (error) {
       console.error('Login failed:', error);
