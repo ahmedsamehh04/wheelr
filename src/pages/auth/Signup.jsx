@@ -1,35 +1,45 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 import './Signup.css';
+
+const schema = yup.object().shape({
+  firstName: yup.string().required('First name is required'),
+  lastName: yup.string().required('Last name is required'),
+  email: yup
+    .string()
+    .email('Please enter a valid email')
+    .required('Email is required'),
+  password: yup
+    .string()
+    .required('Password is required')
+    .min(6, 'Password must be at least 6 characters')
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
+      'Password must contain at least one uppercase letter, one lowercase letter, and one number'
+    ),
+  confirmPassword: yup
+    .string()
+    .required('Please confirm your password')
+    .oneOf([yup.ref('password')], 'Passwords must match'),
+});
 
 const Signup = () => {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    confirmPassword: ''
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: value
-    }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (formData.password !== formData.confirmPassword) {
-      alert("Passwords don't match!");
-      return;
-    }
-    
+  const onSubmit = async (data) => {
     try {
       // TODO: Implement actual signup API call here
-      console.log('Signup attempt with:', formData);
+      console.log('Signup attempt with:', data);
       
       // On successful signup, redirect to login
       navigate('/login');
@@ -48,65 +58,65 @@ const Signup = () => {
           <h1>Sign up</h1>
         </div>
 
-        <form onSubmit={handleSubmit} className="signup-form">
+        <form onSubmit={handleSubmit(onSubmit)} className="signup-form">
           <div className="form-group">
             <label>First name:</label>
             <input
               type="text"
-              name="firstName"
-              value={formData.firstName}
-              onChange={handleChange}
+              {...register('firstName')}
               placeholder="First name"
-              required
             />
+            {errors.firstName && (
+              <span className="error-message">{errors.firstName.message}</span>
+            )}
           </div>
 
           <div className="form-group">
             <label>Last name:</label>
             <input
               type="text"
-              name="lastName"
-              value={formData.lastName}
-              onChange={handleChange}
+              {...register('lastName')}
               placeholder="Last name"
-              required
             />
+            {errors.lastName && (
+              <span className="error-message">{errors.lastName.message}</span>
+            )}
           </div>
 
           <div className="form-group">
             <label>Email:</label>
             <input
               type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
+              {...register('email')}
               placeholder="example@gmail.com"
-              required
             />
+            {errors.email && (
+              <span className="error-message">{errors.email.message}</span>
+            )}
           </div>
 
           <div className="form-group">
             <label>Password:</label>
             <input
               type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
+              {...register('password')}
               placeholder="••••••••••••"
-              required
             />
+            {errors.password && (
+              <span className="error-message">{errors.password.message}</span>
+            )}
           </div>
 
           <div className="form-group">
             <label>Confirm password:</label>
             <input
               type="password"
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleChange}
+              {...register('confirmPassword')}
               placeholder="••••••••••••"
-              required
             />
+            {errors.confirmPassword && (
+              <span className="error-message">{errors.confirmPassword.message}</span>
+            )}
           </div>
 
           <button type="submit" className="signup-button">

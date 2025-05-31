@@ -1,27 +1,35 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 import './Login.css';
+
+const schema = yup.object().shape({
+  email: yup
+    .string()
+    .email('Please enter a valid email')
+    .required('Email is required'),
+  password: yup
+    .string()
+    .required('Password is required')
+    .min(6, 'Password must be at least 6 characters'),
+});
 
 const Login = () => {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    email: '',
-    password: ''
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: value
-    }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const onSubmit = async (data) => {
     try {
       // TODO: Add your actual login authentication logic here
-      console.log('Login attempt with:', formData);
+      console.log('Login attempt with:', data);
       
       // For now, we'll simulate a successful login
       // In a real app, you would verify credentials before navigating
@@ -36,18 +44,18 @@ const Login = () => {
     <div className="login-container">
       <div className="cars-background"></div>
       <div className="login-content">
-        <form onSubmit={handleSubmit} className="login-form">
+        <form onSubmit={handleSubmit(onSubmit)} className="login-form">
           <div className="form-group">
             <label>Email address:</label>
             <div className="input-container">
               <input
                 type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
+                {...register('email')}
                 placeholder="example@gmail.com"
-                required
               />
+              {errors.email && (
+                <span className="error-message">{errors.email.message}</span>
+              )}
             </div>
           </div>
 
@@ -56,12 +64,12 @@ const Login = () => {
             <div className="input-container">
               <input
                 type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
+                {...register('password')}
                 placeholder="••••••••••••"
-                required
               />
+              {errors.password && (
+                <span className="error-message">{errors.password.message}</span>
+              )}
             </div>
           </div>
 
